@@ -22,6 +22,16 @@ func TestGetMonthNameFebruary(t *testing.T) {
 		t.Errorf("getMonthName(2) exected February, got %s\n", monthName)
 	}
 }
+func TestGetMonthNameMarch(t *testing.T) {
+	monthName, err := getMonthName(3)
+	if err != nil {
+		t.Errorf("getMonthName(3) got an error: %s\n", err)
+	}
+
+	if monthName != "March" {
+		t.Errorf("getMonthName(3) exected March, got %s\n", monthName)
+	}
+}
 func TestGetMonthNameInvalidMonth(t *testing.T) {
 	_, err := getMonthName(13)
 	if err == nil {

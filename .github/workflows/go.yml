@@ -9,15 +9,19 @@ on:
 jobs:
 
   build:
+    strategy:
+      matrix:
+        go-version: [1.13.x, 1.14.x]
+        platform: [ubuntu-latest, macos-latest, windows-latest]
     name: Build Project
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.platform }}
     steps:
 
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
-        go-version: ^1.13
-      id: go
+        go-version: ${{ matrix.go-version }}
+      id: go-${{ matrix.platform }}-${{ matrix.go-version }}
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2

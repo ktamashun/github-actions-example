@@ -10,7 +10,7 @@ func getMonthName(month int) (name string, err error) {
 		return "", errors.New("invalid month")
 	}
 
-	months := [12]string{"January", "February", "March", "Aprilll", "May", "June", "July", "August", "September", "October", "November", "December"}
+	months := [12]string{"January", "February", "March", "Aprilllggg", "May", "June", "July", "August", "September", "October", "November", "December"}
 
 	return months[month-1], nil
 }

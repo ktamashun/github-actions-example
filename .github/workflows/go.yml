@@ -9,26 +9,30 @@ on:
 jobs:
 
   build:
-    name: Build Project
-    runs-on: ubuntu-latest
+    name: Go ${{ matrix.go }} sample build on ${{ matrix.platform }}
+    strategy:
+      matrix:
+        go: [ '1.13', '1.12' ]
+        platform: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.platform }}
     steps:
 
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
-        go-version: ^1.13
+        go-version: ${{ matrix.go }}
       id: go
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
-    - name: Get dependencies
-      run: |
-        go get -v -t -d ./...
-        if [ -f Gopkg.toml ]; then
-            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-            dep ensure
-        fi
+    - uses: actions/cache@v2
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+
     - name: Build
       run: go build -v .
 

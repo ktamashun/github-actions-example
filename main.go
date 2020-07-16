@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"rsc.io/quote"
 )
 
 func getMonthName(month int) (name string, err error) {
@@ -16,6 +17,8 @@ func getMonthName(month int) (name string, err error) {
 }
 
 func main() {
+	fmt.Println(quote.Hello())
+
 	month := 1
 	monthName, err := getMonthName(month)
 	if err != nil {
